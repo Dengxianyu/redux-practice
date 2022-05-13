@@ -2,6 +2,12 @@ import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
+import Test1 from './features/counter/Test1';
+import Test2 from './features/counter/Test2';
+import Test3 from './features/counter/Test3';
+import Test4 from './features/counter/Test4';
+import Test5 from './features/counter/Test5';
+import Test6 from './features/counter/Test6';
 
 function App() {
   return (
@@ -51,6 +57,12 @@ function App() {
           </a>
         </span>
       </header>
+      <Test1 />
+      <Test2 />
+      <Test3 />
+      <Test4 />
+      <Test5 />
+      <Test6 />
     </div>
   );
 }
