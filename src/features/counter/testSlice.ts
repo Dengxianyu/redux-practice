@@ -1,6 +1,15 @@
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import memoize, { getUntrackedObject } from './proxy-memoize';
 import { RootState } from '../../app/store';
 import { fetchCount } from './counterAPI';
+// import { memoize } from 'lodash-es';
+
+const memoizeWithArgs = <Args extends unknown[], State extends object, Res>(
+  fnWithArgs: (...args: Args) => (state: State) => Res,
+) => {
+  const fn = memoize((args: Args) => memoize(fnWithArgs(...args)));
+  return (...args: Args) => fn(args);
+};
 
 export interface CounterState {
   valueObj: { value: number};
@@ -65,26 +74,23 @@ export const testSlice = createSlice({
 
 export const { increment, decrement, incrementByAmount } = testSlice.actions;
 
-// The function below is called a selector and allows us to select a value from
-// the state. Selectors can also be defined inline where they're used instead of
-// in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectValueObj = (state: RootState) => {
   console.log('selectValueObj 发生计算');
   return state.test.valueObj;
 }
 
-export const selectObjGenByValueObj = (state: RootState) => {
+export const selectObjGenByValueObj = (otherProp: object) => (state: RootState) => {
   console.log('selectObjGenByValueObj 发生计算');
-  return { ...state.test.valueObj, otherProp: 'test' }
+  return state.test.valueObj;
 };
 
 export const selectObjByCreateSelector = createSelector(selectValueObj, (valueObj) => {
   console.log('selectObjByCreateSelector 发生计算');
-  return { ...valueObj, otherProp: 'test' }
+  return { otherProp: 'test'+ valueObj }
 })
 
-export const selectObjByBadCreateSelector = createSelector((state: RootState) => ({ ...state.test.valueObj, test: 'test' }), (valueObj) => {
-  console.log('selectObjByBadCreateSelector 发生计算');
+export const selectObjByCreateSelectorWithParam = (otherProp: object) => createSelector(selectObjGenByValueObj(otherProp), (valueObj) => {
+  console.log('selectObjByCreateSelectorWithParam 发生计算');
   return { ...valueObj, otherProp: 'test' }
 })
 

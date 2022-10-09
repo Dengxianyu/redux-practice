@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8"> 
+<title>W3Cschool教程(w3cschool.cn)</title>
+<style type="text/css">
+#div1 {width:350px;height:370px;padding:10px;border:1px solid #aaaaaa;}
+</style>
+<script>
+function allowDrop(ev)
+{
+	// ev.preventDefault();
+  ev.dataTransfer.setData("height",ev.clientY);
+	ev.dataTransfer.dropEffect = 'move'
+  document.querySelector('#drag1').style.cursor = 'move'
+}
+
+function drag(ev)
+{
+	ev.dataTransfer.setData("Text",ev.target.id);
+	ev.dataTransfer.dropEffect = 'move'
+}
+
+function drop(ev)
+{
+	// ev.preventDefault();
+	var data=ev.dataTransfer.getData("Text");
+  var height=ev.dataTransfer.getData("height");
+	ev.target.appendChild(document.getElementById(data));
+  document.querySelector('#drag1').style.cursor = 'default'
+}
+</script>
+</head>
+<body>
+
+<p>拖动 w3cschool.cn 图片到矩形框中:</p>
+
+<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+  <p id="drag1" draggable="true" ondragstart="drag(event)" width="336" height="69" style="background-color: red;">123</p>
+</div>
+<br>
+
+</body>
+</html>

@@ -8,6 +8,10 @@ import Test3 from './features/counter/Test3';
 import Test4 from './features/counter/Test4';
 import Test5 from './features/counter/Test5';
 import Test6 from './features/counter/Test6';
+import { Homeric, HomericKey } from './Homeric';
+
+const a: HomericKey = 'abbreviations_click';
+console.log(a)
 
 function App() {
   return (
@@ -18,6 +22,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        {Homeric.ABBREVIATIONS_CLICK}
         <span>
           <span>Learn </span>
           <a
@@ -57,10 +62,10 @@ function App() {
           </a>
         </span>
       </header>
-      <Test1 />
-      <Test2 />
-      <Test3 />
-      <Test4 />
+      {/* <Test1 /> */}
+      {/* <Test2 />
+      <Test3 /> */}
+      {/* <Test4 /> */}
       <Test5 />
       <Test6 />
     </div>
